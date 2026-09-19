@@ -1,0 +1,159 @@
+[gd_scene format=3 uid="uid://05vwvx36ncr7"]
+
+[ext_resource type="PackedScene" uid="uid://cnymdajj1vsqm" path="res://objects/platform.tscn" id="1_o5qli"]
+[ext_resource type="Environment" uid="uid://bqnqgflivjvue" path="res://scenes/main-environment.tres" id="2_0wfyh"]
+[ext_resource type="PackedScene" uid="uid://rjh4ifidqrfp" path="res://objects/platform_medium.tscn" id="3_sugp2"]
+[ext_resource type="PackedScene" uid="uid://dl2ed4gkybggf" path="res://scenes/player.tscn" id="4_jyhfs"]
+[ext_resource type="PackedScene" uid="uid://uqr4hswv6d2g" path="res://objects/platform_grass_large_round.tscn" id="4_tefeu"]
+[ext_resource type="PackedScene" uid="uid://c8up71en5djgm" path="res://objects/platform_falling.tscn" id="5_o6xl0"]
+[ext_resource type="Script" uid="uid://ctfnoejpp4x7d" path="res://scripts/view.gd" id="5_tbgi4"]
+[ext_resource type="Script" uid="uid://buga75h11ovqt" path="res://scripts/platform-moving.gd" id="6_choun"]
+[ext_resource type="PackedScene" uid="uid://bkq6babn5hn0c" path="res://models/flag.glb" id="8_tipki"]
+[ext_resource type="Script" uid="uid://b51at3f0fus0d" path="res://scripts/checkpoint-area.gd" id="8_ya4ey"]
+[ext_resource type="PackedScene" uid="uid://fy2q06ojsww2" path="res://objects/platform_large_2.tscn" id="9_85g3d"]
+[ext_resource type="Theme" uid="uid://dpwbpm8g4xrl8" path="res://resources/themes/theme-1.tres" id="12_eb6dy"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_desod"]
+radius = 1.8843703
+
+[node name="Main" type="Node3D" unique_id=2064329624]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=468659788]
+environment = ExtResource("2_0wfyh")
+
+[node name="Player" parent="." unique_id=327319875 node_paths=PackedStringArray("view") instance=ExtResource("4_jyhfs")]
+view = NodePath("../View")
+
+[node name="UI" type="CanvasLayer" parent="." unique_id=1237617302]
+
+[node name="Texts" type="MarginContainer" parent="UI" unique_id=1196889502]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -157.5
+offset_right = 157.5
+offset_bottom = 90.0
+grow_horizontal = 2
+
+[node name="CheckpointReached" type="Label" parent="UI/Texts" unique_id=811742526]
+visible = false
+layout_mode = 2
+theme = ExtResource("12_eb6dy")
+text = "Checkpoint Reached"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Finished" type="Label" parent="UI/Texts" unique_id=493226756]
+visible = false
+layout_mode = 2
+theme = ExtResource("12_eb6dy")
+text = "Finished"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="View" type="Node3D" parent="." unique_id=1124167303 node_paths=PackedStringArray("target")]
+script = ExtResource("5_tbgi4")
+target = NodePath("../Player")
+
+[node name="Camera" type="Camera3D" parent="View" unique_id=1190511762]
+v_offset = 1.0
+current = true
+fov = 40.0
+
+[node name="World" type="Node3D" parent="." unique_id=905107410]
+
+[node name="platform" parent="World" unique_id=834274396 instance=ExtResource("1_o5qli")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.2046237, -4.6408043)
+
+[node name="platform2" parent="World" unique_id=115753462 instance=ExtResource("1_o5qli")]
+transform = Transform3D(0.75327134, 0, -0.65770984, 0, 1, 0, 0.65770984, 0, 0.75327134, -0.4687841, 1.072578, -12.071788)
+
+[node name="platform3" parent="World" unique_id=1421691273 instance=ExtResource("1_o5qli")]
+transform = Transform3D(0.38518724, 0, -0.9228384, 0, 1, 0, 0.9228384, 0, 0.38518724, 2.0400274, 1.5478859, -13.96676)
+
+[node name="platform-medium" parent="World" unique_id=88440924 instance=ExtResource("3_sugp2")]
+transform = Transform3D(0.9241422, 0, 0.38204873, 0, 1, 0, -0.38204873, 0, 0.9241422, -1.6290667, 0.23912656, -8.166566)
+
+[node name="platform-medium2" parent="World" unique_id=1924623206 instance=ExtResource("3_sugp2")]
+transform = Transform3D(-0.16958317, 0, 0.9855159, 0, 1, 0, -0.9855159, 0, -0.16958317, 4.5401187, 2.4367733, -17.042938)
+
+[node name="platform-medium4" parent="World" unique_id=1825912355 instance=ExtResource("3_sugp2")]
+transform = Transform3D(-0.5043395, 0, 0.8635055, 0, 1, 0, -0.8635055, 0, -0.5043395, 0.9375433, 5.8593764, -34.349873)
+
+[node name="moving-platform-medium" parent="World" unique_id=333838637 instance=ExtResource("3_sugp2")]
+transform = Transform3D(1.0000001, 0, 0, 0, 1, 0, 0, 0, 1.0000001, 11, 6.007, -40.32)
+script = ExtResource("6_choun")
+pos_a = Vector3(11, 6.007, -40.32)
+pos_b = Vector3(1.581, 6.007, -40.32)
+time = 5.0
+
+[node name="moving-platform-medium2" parent="World" unique_id=1212279644 instance=ExtResource("3_sugp2")]
+transform = Transform3D(1.0000001, 0, 0, 0, 1, 0, 0, 0, 1.0000001, 6.073433, 7.5545583, -48.79314)
+script = ExtResource("6_choun")
+pos_a = Vector3(11, 7.555, -48.793)
+pos_b = Vector3(1.581, 7.555, -48.793)
+time = 6.0
+
+[node name="platform-medium3" parent="World" unique_id=1978731493 instance=ExtResource("3_sugp2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.264151, 3.497, -23.603127)
+
+[node name="platform-grass-large-round" parent="World" unique_id=789711296 instance=ExtResource("4_tefeu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.24389863, 3.496953, -20.230919)
+
+[node name="Area3D" type="Area3D" parent="World/platform-grass-large-round" unique_id=1571532024]
+script = ExtResource("8_ya4ey")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="World/platform-grass-large-round/Area3D" unique_id=1522297713]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6486387, 0.07553482)
+shape = SubResource("SphereShape3D_desod")
+
+[node name="flag2" parent="World/platform-grass-large-round" unique_id=1110665617 instance=ExtResource("8_tipki")]
+transform = Transform3D(-0.26758555, 0, 0.96353424, 0, 1, 0, -0.96353424, 0, -0.26758555, -0.24534798, 0.5484719, -1.30509)
+
+[node name="flag3" parent="World/platform-grass-large-round" unique_id=257896979 instance=ExtResource("8_tipki")]
+transform = Transform3D(-0.9124032, 0, 0.40929276, 0, 1, 0, -0.40929276, 0, -0.9124032, 6.76525, 2.9054937, -13.825256)
+
+[node name="platform-grass-large-round2" parent="World" unique_id=524903941 instance=ExtResource("4_tefeu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.0771074, 5.859, -35.443447)
+
+[node name="Area3D2" type="Area3D" parent="World/platform-grass-large-round2" unique_id=1416402709]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.4407454, -21.75909)
+script = ExtResource("8_ya4ey")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="World/platform-grass-large-round2/Area3D2" unique_id=2118185172]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.05107689, -2.0025253, 22.236164)
+shape = SubResource("SphereShape3D_desod")
+
+[node name="platform-grass-large-round3" parent="World" unique_id=1102358722 instance=ExtResource("4_tefeu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.0771074, 8.299746, -57.202538)
+
+[node name="Area3D" type="Area3D" parent="World/platform-grass-large-round3" unique_id=1421610969]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="World/platform-grass-large-round3/Area3D" unique_id=748655431]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6486387, -0.52353287)
+shape = SubResource("SphereShape3D_desod")
+
+[node name="platform-falling" parent="World" unique_id=1511310826 instance=ExtResource("5_o6xl0")]
+transform = Transform3D(0.9102077, 0, -0.4141521, 0, 1, 0, 0.4141521, 0, 0.9102077, -3.75458, 4.146538, -28.228323)
+
+[node name="platform-falling2" parent="World" unique_id=1693887689 instance=ExtResource("5_o6xl0")]
+transform = Transform3D(0.7177397, 0, -0.6963115, 0, 1, 0, 0.6963115, 0, 0.7177397, -2.0429807, 4.9000864, -31.67085)
+
+[node name="platform-falling3" parent="World" unique_id=470771022 instance=ExtResource("5_o6xl0")]
+transform = Transform3D(0.99999994, 0, 0, 0, 1, 0, 0, 0, 0.99999994, 6.077, 6.4624815, -44.769238)
+
+[node name="platform-falling4" parent="World" unique_id=1954780922 instance=ExtResource("5_o6xl0")]
+transform = Transform3D(0.99999994, 0, 0, 0, 1, 0, 0, 0, 0.99999994, 6.077, 8.083392, -52.806656)
+
+[node name="flag2" parent="World" unique_id=410432326 instance=ExtResource("8_tipki")]
+transform = Transform3D(0.30523995, 0, -0.95227545, 0, 1, 0, 0.95227545, 0, 0.30523995, 6.9818377, 8.799746, -57.693142)
+
+[node name="platform-large2" parent="World" unique_id=2039011602 instance=ExtResource("9_85g3d")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5358803, 0)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1190931755]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.04808998, 5.70485)
+shadow_enabled = true
+
+[connection signal="body_entered" from="World/platform-grass-large-round/Area3D" to="World/platform-grass-large-round/Area3D" method="_on_body_entered"]
+[connection signal="body_entered" from="World/platform-grass-large-round3/Area3D" to="World/platform-grass-large-round3/Area3D" method="_on_body_entered"]
