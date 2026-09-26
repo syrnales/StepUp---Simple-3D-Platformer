@@ -1,28 +1,36 @@
 [gd_scene format=3 uid="uid://05vwvx36ncr7"]
 
 [ext_resource type="PackedScene" uid="uid://cnymdajj1vsqm" path="res://objects/platform.tscn" id="1_o5qli"]
+[ext_resource type="Script" uid="uid://2ndmtw2djhkk" path="res://scripts/main.gd" id="1_trceg"]
 [ext_resource type="Environment" uid="uid://bqnqgflivjvue" path="res://scenes/main-environment.tres" id="2_0wfyh"]
+[ext_resource type="Script" uid="uid://ctshqdvnr6lfo" path="res://scripts/player_spawner.gd" id="3_a8y0u"]
 [ext_resource type="PackedScene" uid="uid://rjh4ifidqrfp" path="res://objects/platform_medium.tscn" id="3_sugp2"]
 [ext_resource type="PackedScene" uid="uid://dl2ed4gkybggf" path="res://scenes/player.tscn" id="4_jyhfs"]
 [ext_resource type="PackedScene" uid="uid://uqr4hswv6d2g" path="res://objects/platform_grass_large_round.tscn" id="4_tefeu"]
+[ext_resource type="Theme" uid="uid://bgk6h5foe175n" path="res://scenes/ui-theme.tres" id="5_jkv2x"]
 [ext_resource type="PackedScene" uid="uid://c8up71en5djgm" path="res://objects/platform_falling.tscn" id="5_o6xl0"]
 [ext_resource type="Script" uid="uid://ctfnoejpp4x7d" path="res://scripts/view.gd" id="5_tbgi4"]
 [ext_resource type="Script" uid="uid://buga75h11ovqt" path="res://scripts/platform-moving.gd" id="6_choun"]
+[ext_resource type="FontFile" uid="uid://bpv0ox5abe3us" path="res://assets/kenney_ui-pack/Font/Poppins/Poppins-Medium.ttf" id="7_muem4"]
 [ext_resource type="PackedScene" uid="uid://bkq6babn5hn0c" path="res://models/flag.glb" id="8_tipki"]
 [ext_resource type="Script" uid="uid://b51at3f0fus0d" path="res://scripts/checkpoint-area.gd" id="8_ya4ey"]
 [ext_resource type="PackedScene" uid="uid://fy2q06ojsww2" path="res://objects/platform_large_2.tscn" id="9_85g3d"]
+[ext_resource type="PackedScene" uid="uid://bj1gvxguj1nh3" path="res://scenes/moving_platform.tscn" id="10_muem4"]
 [ext_resource type="Theme" uid="uid://dpwbpm8g4xrl8" path="res://resources/themes/theme-1.tres" id="12_eb6dy"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_desod"]
 radius = 1.8843703
 
 [node name="Main" type="Node3D" unique_id=2064329624]
+script = ExtResource("1_trceg")
+player_scene = ExtResource("4_jyhfs")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=468659788]
 environment = ExtResource("2_0wfyh")
 
-[node name="Player" parent="." unique_id=327319875 node_paths=PackedStringArray("view") instance=ExtResource("4_jyhfs")]
-view = NodePath("../View")
+[node name="Players" type="Node3D" parent="." unique_id=992788438]
+script = ExtResource("3_a8y0u")
+player_scene = ExtResource("4_jyhfs")
 
 [node name="UI" type="CanvasLayer" parent="." unique_id=1237617302]
 
@@ -51,14 +59,128 @@ text = "Finished"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="View" type="Node3D" parent="." unique_id=1124167303 node_paths=PackedStringArray("target")]
-script = ExtResource("5_tbgi4")
-target = NodePath("../Player")
+[node name="MainMenu" type="Control" parent="UI" unique_id=2037573983]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("5_jkv2x")
 
-[node name="Camera" type="Camera3D" parent="View" unique_id=1190511762]
-v_offset = 1.0
-current = true
-fov = 40.0
+[node name="MenuBackground" type="ColorRect" parent="UI/MainMenu" unique_id=1795331261]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Title" type="Label" parent="UI/MainMenu" unique_id=974568242]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -157.0
+offset_top = -131.76
+offset_right = 157.0
+offset_bottom = -19.759766
+grow_horizontal = 2
+grow_vertical = 2
+text = "Step Up"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Title2" type="Label" parent="UI/MainMenu" unique_id=284316258]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -155.0
+offset_top = 6.0
+offset_right = 155.0
+offset_bottom = 41.99997
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.65882355, 0.47058824, 0.9098039, 1)
+theme_override_font_sizes/font_size = 21
+text = "An Ultra Short 3D Platformer"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MainMenuButtons" type="MarginContainer" parent="UI/MainMenu" unique_id=2038394382]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -101.0
+offset_top = 67.905
+offset_right = 101.00018
+offset_bottom = 190.90515
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/MainMenu/MainMenuButtons" unique_id=1037670891]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="Play" type="Button" parent="UI/MainMenu/MainMenuButtons/VBoxContainer" unique_id=1342367820]
+layout_mode = 2
+text = "Play"
+flat = true
+
+[node name="Quit" type="Button" parent="UI/MainMenu/MainMenuButtons/VBoxContainer" unique_id=132821728]
+layout_mode = 2
+text = "Quit"
+flat = true
+
+[node name="PlayOptions" type="MarginContainer" parent="UI/MainMenu" unique_id=1208648718]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = -94.5
+offset_right = 100.0
+offset_bottom = 94.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/MainMenu/PlayOptions" unique_id=1276533886]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="Host" type="Button" parent="UI/MainMenu/PlayOptions/VBoxContainer" unique_id=435363191]
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "Host"
+flat = true
+
+[node name="Join" type="Button" parent="UI/MainMenu/PlayOptions/VBoxContainer" unique_id=456577817]
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "Join"
+flat = true
+
+[node name="RoomID" type="LineEdit" parent="UI/MainMenu/PlayOptions/VBoxContainer" unique_id=1414489044]
+layout_mode = 2
+placeholder_text = "Enter Room ID to join"
+alignment = 1
+
+[node name="Back" type="Button" parent="UI/MainMenu/PlayOptions/VBoxContainer" unique_id=2050641721]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("7_muem4")
+theme_override_font_sizes/font_size = 23
+text = "Back"
+flat = true
 
 [node name="World" type="Node3D" parent="." unique_id=905107410]
 
@@ -80,11 +202,11 @@ transform = Transform3D(-0.16958317, 0, 0.9855159, 0, 1, 0, -0.9855159, 0, -0.16
 [node name="platform-medium4" parent="World" unique_id=1825912355 instance=ExtResource("3_sugp2")]
 transform = Transform3D(-0.5043395, 0, 0.8635055, 0, 1, 0, -0.8635055, 0, -0.5043395, 0.9375433, 5.8593764, -34.349873)
 
-[node name="moving-platform-medium" parent="World" unique_id=333838637 instance=ExtResource("3_sugp2")]
-transform = Transform3D(1.0000001, 0, 0, 0, 1, 0, 0, 0, 1.0000001, 11, 6.007, -40.32)
+[node name="MovingPlatform" parent="World" unique_id=182584781 instance=ExtResource("10_muem4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.2116494, 6.007, -40.32)
 script = ExtResource("6_choun")
 pos_a = Vector3(11, 6.007, -40.32)
-pos_b = Vector3(1.581, 6.007, -40.32)
+pos_b = Vector3(-1.226, 6.007, -40.32)
 time = 5.0
 
 [node name="moving-platform-medium2" parent="World" unique_id=1212279644 instance=ExtResource("3_sugp2")]
@@ -155,5 +277,26 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5358803, 0)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.04808998, 5.70485)
 shadow_enabled = true
 
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="." unique_id=1765388899]
+_spawnable_scenes = PackedStringArray("uid://dl2ed4gkybggf")
+spawn_path = NodePath("../Players")
+
+[node name="View" type="Node3D" parent="." unique_id=1962210106 node_paths=PackedStringArray("target")]
+top_level = true
+script = ExtResource("5_tbgi4")
+target = NodePath("../Players")
+rotation_speed = 0
+
+[node name="Camera" type="Camera3D" parent="View" unique_id=1213343490]
+v_offset = 1.0
+current = true
+fov = 40.0
+
+[connection signal="pressed" from="UI/MainMenu/MainMenuButtons/VBoxContainer/Play" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="UI/MainMenu/MainMenuButtons/VBoxContainer/Quit" to="." method="_on_quit_pressed"]
+[connection signal="pressed" from="UI/MainMenu/PlayOptions/VBoxContainer/Host" to="." method="_on_host_pressed"]
+[connection signal="pressed" from="UI/MainMenu/PlayOptions/VBoxContainer/Join" to="." method="_on_join_pressed"]
+[connection signal="pressed" from="UI/MainMenu/PlayOptions/VBoxContainer/Back" to="." method="_on_back_pressed"]
 [connection signal="body_entered" from="World/platform-grass-large-round/Area3D" to="World/platform-grass-large-round/Area3D" method="_on_body_entered"]
 [connection signal="body_entered" from="World/platform-grass-large-round3/Area3D" to="World/platform-grass-large-round3/Area3D" method="_on_body_entered"]
+[connection signal="spawned" from="MultiplayerSpawner" to="." method="_on_multiplayer_spawner_spawned"]

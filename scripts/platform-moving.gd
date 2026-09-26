@@ -5,12 +5,7 @@ extends Node3D
 @export var time : float = 2.0
 @export var pause : float = 0.7
 
-@onready var static_body: StaticBody3D = $"platform-medium2#StaticBody3D"
-
-var previous_position: Vector3
-
 func _ready() -> void:
-	previous_position = global_position
 	_move_platform()
 
 func _move_platform():
@@ -27,11 +22,3 @@ func _move_platform():
 		.set_trans(Tween.TRANS_SINE) \
 		.set_ease(Tween.EASE_IN_OUT)
 	move_tween.tween_interval(pause)
-
-func _physics_process(delta):
-	var current_velocity = (global_position - previous_position) / delta
-	
-	if static_body:
-		static_body.constant_linear_velocity = current_velocity
-
-	previous_position = global_position

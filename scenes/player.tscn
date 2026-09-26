@@ -35,6 +35,17 @@ gravity = Vector3(0, 0.1, 0)
 scale_min = 0.75
 scale_curve = SubResource("CurveTexture_f46kd")
 
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_qlg0r"]
+properties/0/path = NodePath(".:sync_position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath(".:sync_rotation")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+properties/2/path = NodePath(".:sync_velocity")
+properties/2/spawn = true
+properties/2/replication_mode = 1
+
 [node name="Player" type="CharacterBody3D" unique_id=327319875]
 script = ExtResource("1_ffboj")
 
@@ -43,6 +54,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.55, 0)
 shape = SubResource("CapsuleShape3D_gdq8c")
 
 [node name="Character" parent="." unique_id=1700083237 instance=ExtResource("2_nero3")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)
 
 [node name="Shadow" type="Decal" parent="." unique_id=186136001]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.9, 0)
@@ -65,5 +77,8 @@ stream = ExtResource("5_ics1s")
 volume_db = -5.0
 pitch_scale = 1.25
 autoplay = true
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=1422258983]
+replication_config = SubResource("SceneReplicationConfig_qlg0r")
 
 [editable path="Character"]
