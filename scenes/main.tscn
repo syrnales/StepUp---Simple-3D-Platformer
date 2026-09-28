@@ -12,6 +12,7 @@
 [ext_resource type="Script" uid="uid://ctfnoejpp4x7d" path="res://scripts/view.gd" id="5_tbgi4"]
 [ext_resource type="Script" uid="uid://buga75h11ovqt" path="res://scripts/platform-moving.gd" id="6_choun"]
 [ext_resource type="FontFile" uid="uid://bpv0ox5abe3us" path="res://assets/kenney_ui-pack/Font/Poppins/Poppins-Medium.ttf" id="7_muem4"]
+[ext_resource type="FontFile" uid="uid://c5ypbrt470wik" path="res://assets/kenney_ui-pack/Font/Poppins/Poppins-Regular.ttf" id="8_dp3eg"]
 [ext_resource type="PackedScene" uid="uid://bkq6babn5hn0c" path="res://models/flag.glb" id="8_tipki"]
 [ext_resource type="Script" uid="uid://b51at3f0fus0d" path="res://scripts/checkpoint-area.gd" id="8_ya4ey"]
 [ext_resource type="PackedScene" uid="uid://fy2q06ojsww2" path="res://objects/platform_large_2.tscn" id="9_85g3d"]
@@ -38,9 +39,9 @@ player_scene = ExtResource("4_jyhfs")
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -157.5
-offset_right = 157.5
-offset_bottom = 90.0
+offset_left = -255.0
+offset_right = 255.0
+offset_bottom = 168.0
 grow_horizontal = 2
 
 [node name="CheckpointReached" type="Label" parent="UI/Texts" unique_id=811742526]
@@ -77,6 +78,7 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="Title" type="Label" parent="UI/MainMenu" unique_id=974568242]
+visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -94,6 +96,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Title2" type="Label" parent="UI/MainMenu" unique_id=284316258]
+visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -113,6 +116,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="MainMenuButtons" type="MarginContainer" parent="UI/MainMenu" unique_id=2038394382]
+visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -148,9 +152,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -100.0
-offset_top = -94.5
+offset_top = -144.5
 offset_right = 100.0
-offset_bottom = 94.5
+offset_bottom = 316.0
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -182,6 +186,20 @@ theme_override_font_sizes/font_size = 23
 text = "Back"
 flat = true
 
+[node name="RoomID-text" type="Label" parent="UI" unique_id=1964722565]
+offset_left = 5.0
+offset_top = 619.0
+offset_right = 88.0
+offset_bottom = 647.0
+size_flags_horizontal = 4
+size_flags_vertical = 8
+theme = ExtResource("5_jkv2x")
+theme_override_fonts/font = ExtResource("8_dp3eg")
+theme_override_font_sizes/font_size = 20
+text = "Room ID"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="World" type="Node3D" parent="." unique_id=905107410]
 
 [node name="platform" parent="World" unique_id=834274396 instance=ExtResource("1_o5qli")]
@@ -209,12 +227,12 @@ pos_a = Vector3(11, 6.007, -40.32)
 pos_b = Vector3(-1.226, 6.007, -40.32)
 time = 5.0
 
-[node name="moving-platform-medium2" parent="World" unique_id=1212279644 instance=ExtResource("3_sugp2")]
-transform = Transform3D(1.0000001, 0, 0, 0, 1, 0, 0, 0, 1.0000001, 6.073433, 7.5545583, -48.79314)
+[node name="MovingPlatform2" parent="World" unique_id=70610143 instance=ExtResource("10_muem4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.0160918, 7.144, -48.812)
 script = ExtResource("6_choun")
-pos_a = Vector3(11, 7.555, -48.793)
-pos_b = Vector3(1.581, 7.555, -48.793)
-time = 6.0
+pos_a = Vector3(1.016, 7.144, -48.812)
+pos_b = Vector3(11.78, 7.144, -48.812)
+time = 7.0
 
 [node name="platform-medium3" parent="World" unique_id=1978731493 instance=ExtResource("3_sugp2")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.264151, 3.497, -23.603127)

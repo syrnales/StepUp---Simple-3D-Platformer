@@ -8,6 +8,8 @@ extends Node3D
 @onready var title: Label = $UI/MainMenu/Title
 @onready var title_2: Label = $UI/MainMenu/Title2
 @onready var room_id_input: LineEdit = $UI/MainMenu/PlayOptions/VBoxContainer/RoomID
+@onready var room_id_text: Label = $"UI/RoomID-text"
+
 
 var peer: NodeTunnelPeer
 
@@ -17,6 +19,7 @@ var peer: NodeTunnelPeer
 func _ready() -> void:
 	main_menu_buttons.show()
 	play_options.hide()
+	room_id_text.hide()
 
 	# Spawning Signals
 	multiplayer.peer_connected.connect(_on_peer_connected)
@@ -66,6 +69,9 @@ func _create_lobby() -> void:
 	
 	var room_id = peer.room_id
 	print("ROOM CREATED! Share this ID with friends: ", room_id)
+	room_id_text.text = str(room_id)
+	room_id_text.show()
+	
 	
 	# Spawn the host's own player character
 	_add_player(multiplayer.get_unique_id())
