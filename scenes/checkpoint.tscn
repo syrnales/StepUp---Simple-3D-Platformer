@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://d2iiu07vu2tec"]
+
+[ext_resource type="Script" uid="uid://b51at3f0fus0d" path="res://scripts/checkpoint-area.gd" id="1_yyywg"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_xam77"]
+radius = 0.920037
+
+[node name="Checkpoint" type="Area3D" unique_id=135413465]
+script = ExtResource("1_yyywg")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=881007898]
+shape = SubResource("SphereShape3D_xam77")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
