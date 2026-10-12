@@ -22,6 +22,7 @@ config/icon="res://icon.svg"
 [autoload]
 
 Audio="*uid://d03s2ee8q5wo7"
+Race="*uid://dlumwwctrggju"
 
 [display]
 

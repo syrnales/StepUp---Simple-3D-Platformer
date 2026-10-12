@@ -12,6 +12,7 @@ var view: Node3D
 @export var sync_rotation: float
 @export var sync_velocity: Vector3
 
+var can_move := true
 var spawn_position: Vector3
 var movement_velocity: Vector3
 var rotation_direction: float
@@ -131,6 +132,9 @@ func handle_effects(delta):
 		
 
 func handle_controls(delta):
+	if not can_move:
+		movement_velocity = Vector3.ZERO
+		return
 	var input := Vector3.ZERO
 
 	input.x = Input.get_axis("move_left", "move_right")
@@ -147,6 +151,12 @@ func handle_controls(delta):
 	if Input.is_action_just_pressed("jump"):
 		if jump_single or jump_double:
 			jump()
+			
+	if position.y < spawn_position.y - 15:
+		global_position = spawn_position
+		velocity = Vector3.ZERO
+		sync_position = spawn_position
+		get_tree().call_group("falling_platforms", "reset_platform")
 
 func handle_gravity(delta):
 	# Apply gravity directly to the native velocity.y property
@@ -170,3 +180,10 @@ func jump():
 		jump_double = true
 	else:
 		jump_double = false
+
+func reset_for_race(pos: Vector3) -> void:
+	global_position = pos
+	spawn_position = pos
+	velocity = Vector3.ZERO
+	sync_position = pos
+	sync_velocity = Vector3.ZERO

@@ -9,6 +9,7 @@ extends Node3D
 @onready var title_2: Label = $UI/MainMenu/Title2
 @onready var room_id_input: LineEdit = $UI/MainMenu/PlayOptions/VBoxContainer/RoomID
 @onready var room_id_text: Label = $"UI/RoomID-text"
+@onready var race_hud: Control = $UI/RaceHUD
 
 
 var peer: NodeTunnelPeer
@@ -59,6 +60,7 @@ func _show_main_menu():
 # Hosting
 func _on_host_pressed() -> void:
 	main_menu.hide()
+	race_hud.show()
 	_create_lobby()
 
 func _create_lobby() -> void:
@@ -85,6 +87,7 @@ func _on_join_pressed() -> void:
 		return
 		
 	main_menu.hide()
+	race_hud.show()
 	print("Joining room: ", room_id)
 	
 	peer.join_room(room_id)
