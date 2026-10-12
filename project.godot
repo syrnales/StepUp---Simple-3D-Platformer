@@ -23,6 +23,8 @@ config/icon="res://icon.svg"
 
 Audio="*uid://d03s2ee8q5wo7"
 Race="*uid://dlumwwctrggju"
+NetSim="*uid://d1vhx2jlg1qdl"
+LatencyProbe="*uid://bsufnxsh83tmn"
 
 [display]
 

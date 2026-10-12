@@ -9,17 +9,12 @@ func _ready() -> void:
 		Race.player_finished.connect(_on_player_finished)
 
 func _on_body_entered(body: Node3D) -> void:
-	# Only react to YOUR character
-	if not ("spawn_position" in body and body.name == str(multiplayer.get_unique_id())):
+	if not "spawn_position" in body:
 		return
-
 	body.spawn_position = global_position + Vector3(0, 2, 0)
 
-	if is_final_checkpoint and Race.state == Race.State.RACING:
-		if multiplayer.is_server():
-			Race.report_finish(multiplayer.get_unique_id())
-		else:
-			Race.request_finish.rpc_id(1)
+	if is_final_checkpoint and multiplayer.is_server() and Race.state == Race.State.RACING:
+		Race.report_finish(body.name.to_int())
 
 # Runs on every peer when the server confirms someone finished
 func _on_player_finished(id: int, _time: float, _place: int) -> void:

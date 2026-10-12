@@ -54,20 +54,18 @@ func start_race() -> void:
 func _begin_countdown(spawns: Dictionary) -> void:
 	_set_state(State.COUNTDOWN)
 
-	# Each peer teleports and freezes only its own player (it owns it)
-	var me = _my_player()
-	if me:
-		me.reset_for_race(spawns.get(multiplayer.get_unique_id(), me.global_position))
-		me.can_move = false
+	for p in _players().get_children():
+		p.reset_for_race(spawns.get(p.name.to_int(), p.global_position))
+		p.can_move = false
 
 	for n in range(COUNTDOWN_SECONDS, 0, -1):
 		countdown_tick.emit(n)
 		await get_tree().create_timer(1.0).timeout
 
-	countdown_tick.emit(0)  # GO!
+	countdown_tick.emit(0)
 	race_start_ms = Time.get_ticks_msec()
-	if me:
-		me.can_move = true
+	for p in _players().get_children():
+		p.can_move = true
 	_set_state(State.RACING)
 
 	if multiplayer.is_server():
@@ -112,10 +110,9 @@ func _end_race(final_results: Array) -> void:
 
 @rpc("authority", "call_local", "reliable")
 func _back_to_lobby() -> void:
-	var me = _my_player()
-	if me:
-		me.reset_for_race(_start_pos())
-		me.can_move = true
+	for p in _players().get_children():
+		p.reset_for_race(_start_pos())
+		p.can_move = true
 
 @rpc("any_peer", "call_remote", "reliable")
 func request_finish() -> void:
