@@ -111,7 +111,7 @@ func _end_race(final_results: Array) -> void:
 @rpc("authority", "call_local", "reliable")
 func _back_to_lobby() -> void:
 	for p in _players().get_children():
-		p.reset_for_race(_start_pos())
+		p.reset_for_race(p.lobby_position)
 		p.can_move = true
 
 @rpc("any_peer", "call_remote", "reliable")

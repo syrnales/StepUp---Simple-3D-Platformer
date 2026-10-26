@@ -18,7 +18,13 @@
 [ext_resource type="FontFile" uid="uid://b0b718w5c2pel" path="res://assets/kenney_ui-pack/Font/Poppins/Poppins-ExtraBold.ttf" id="10_0ld40"]
 [ext_resource type="Script" uid="uid://hd82a7ou03bl" path="res://scripts/race_hud.gd" id="10_gqmmt"]
 [ext_resource type="PackedScene" uid="uid://bj1gvxguj1nh3" path="res://scenes/moving_platform.tscn" id="10_muem4"]
+[ext_resource type="Shader" uid="uid://b1d176l541m5q" path="res://resources/shaders/fast_blur.gdshader" id="11_gqmmt"]
 [ext_resource type="PackedScene" uid="uid://d2iiu07vu2tec" path="res://scenes/checkpoint.tscn" id="14_muem4"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_desod"]
+shader = ExtResource("11_gqmmt")
+shader_parameter/radius = 6.0
+shader_parameter/darken = 0.25
 
 [node name="Main" type="Node3D" unique_id=2064329624]
 script = ExtResource("1_trceg")
@@ -183,6 +189,7 @@ text = "Back"
 flat = true
 
 [node name="RoomID-text" type="Label" parent="UI" unique_id=1964722565]
+visible = false
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
@@ -266,6 +273,59 @@ grow_vertical = 2
 theme_override_fonts/font = ExtResource("10_0ld40")
 theme_override_font_sizes/font_size = 41
 text = "START"
+flat = true
+
+[node name="InGameMenu" type="Control" parent="UI" unique_id=1379388472]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BackgroundBlur" type="ColorRect" parent="UI/InGameMenu" unique_id=679065592]
+material = SubResource("ShaderMaterial_desod")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/InGameMenu" unique_id=36937463]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -75.0
+offset_top = -75.0
+offset_right = 75.0
+offset_bottom = 75.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("5_jkv2x")
+theme_override_constants/separation = 6
+alignment = 1
+
+[node name="Resume" type="Button" parent="UI/InGameMenu/VBoxContainer" unique_id=1502919327]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.9561332, 0.93704563, 0.99161464, 1)
+theme_override_colors/font_pressed_color = Color(0.9682792, 0.707335, 0.9542838, 1)
+theme_override_colors/font_hover_color = Color(0.8374862, 0.75935835, 0.96813804, 1)
+theme_override_font_sizes/font_size = 60
+text = "Resume"
+flat = true
+
+[node name="Quit" type="Button" parent="UI/InGameMenu/VBoxContainer" unique_id=424473567]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.9561332, 0.93704563, 0.99161464, 1)
+theme_override_colors/font_pressed_color = Color(0.9682792, 0.707335, 0.9542838, 1)
+theme_override_colors/font_hover_color = Color(0.8374862, 0.75935835, 0.96813804, 1)
+theme_override_font_sizes/font_size = 60
+text = "Quit"
 flat = true
 
 [node name="World" type="Node3D" parent="." unique_id=905107410]
@@ -371,4 +431,6 @@ fov = 40.0
 [connection signal="pressed" from="UI/MainMenu/PlayOptions/VBoxContainer/Host" to="." method="_on_host_pressed"]
 [connection signal="pressed" from="UI/MainMenu/PlayOptions/VBoxContainer/Join" to="." method="_on_join_pressed"]
 [connection signal="pressed" from="UI/MainMenu/PlayOptions/VBoxContainer/Back" to="." method="_on_back_pressed"]
+[connection signal="pressed" from="UI/InGameMenu/VBoxContainer/Resume" to="." method="_on_resume_pressed"]
+[connection signal="pressed" from="UI/InGameMenu/VBoxContainer/Quit" to="." method="_on_quit_game_pressed"]
 [connection signal="spawned" from="MultiplayerSpawner" to="." method="_on_multiplayer_spawner_spawned"]

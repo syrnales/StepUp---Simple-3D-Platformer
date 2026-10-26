@@ -22,12 +22,16 @@ var _held := 0.0
 
 
 func _player() -> Node:
-	return get_tree().current_scene.get_node_or_null("Players/%d" % multiplayer.get_unique_id())
-
+	var scene := get_tree().current_scene
+	if scene == null:
+		return null   # scene is being reloaded
+	return scene.get_node_or_null("Players/%d" % multiplayer.get_unique_id())
 
 func _process(delta: float) -> void:
 	var p = _player()
 	if p == null:
+		_waiting = false
+		_held = 0.0
 		return
 
 	var drawn: Vector3 = p.model.global_position

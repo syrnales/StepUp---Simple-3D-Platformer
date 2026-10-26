@@ -5,6 +5,11 @@ extends Control
 @onready var start_button: Button = $StartButton
 @onready var results_label: Label = $Results
 
+const SFX_COUNTDOWN := "res://resources/sounds/countdown.ogg"
+const SFX_GO := "res://resources/sounds/go.ogg"
+const SFX_FINISH := "res://resources/sounds/finish.ogg"
+const SFX_FINISH_2 := "res://resources/sounds/finish_2.ogg"
+
 var i_finished := false
 var showing_results := false
 
@@ -16,6 +21,18 @@ func _ready() -> void:
 	Race.state_changed.connect(_on_state)
 	Race.player_finished.connect(_on_finished)
 	Race.race_ended.connect(_show_results)
+
+func _unhandled_input(event: InputEvent) -> void:
+	if event is InputEventKey and event.pressed and event.keycode == KEY_F11:
+		print("is_server=", multiplayer.is_server(), "  state=", Race.state,
+			"  showing_results=", showing_results,
+			"  button.visible=", start_button.visible,
+			"  in_tree=", start_button.is_visible_in_tree())
+		var n: Node = start_button
+		while n != null:
+			if "visible" in n and not n.visible:
+				print("HIDDEN ANCESTOR: ", n.get_path())
+			n = n.get_parent()
 
 func _process(_delta: float) -> void:
 	start_button.visible = multiplayer.is_server() \
@@ -38,6 +55,7 @@ func _on_state(s: int) -> void:
 func _on_tick(n: int) -> void:
 	countdown_label.show()
 	countdown_label.text = str(n) if n > 0 else "GO!"
+	Audio.play(SFX_COUNTDOWN if n > 0 else SFX_GO, false)
 	if n == 0:
 		await get_tree().create_timer(0.8).timeout
 		countdown_label.hide()
@@ -46,13 +64,14 @@ func _on_finished(id: int, time: float, _place: int) -> void:
 	if id != multiplayer.get_unique_id():
 		return
 	i_finished = true
-	timer_label.text = _fmt(time)   # frozen at the server-confirmed time
-	# No center label here anymore, so it can't overlap "Finished"
+	timer_label.text = _fmt(time)
+	Audio.play(SFX_FINISH, false)
 
 const FADE_TIME := 0.5
 
 func _show_results(results: Array) -> void:
 	showing_results = true
+	Audio.play(SFX_FINISH_2, false)
 
 	# Wait for the "Finished" text to fade out first
 	var finished_label = get_tree().current_scene.get_node_or_null("UI/Texts/Finished")

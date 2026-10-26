@@ -17,11 +17,11 @@ const PRESETS := [
 var enabled := true
 var rtt_ms := 150.0
 var jitter_ms := 30.0
-var loss_pct := 0.0          # applied per direction
+var loss_pct := 0.0
 var prediction_enabled := true
-var show_ghost := true
+var show_ghost := false
 var _preset_index := 2
-var overlay_visible := true
+var overlay_visible := false
 
 # --- stats written by the local player ---
 var pending_count := 0
@@ -42,6 +42,7 @@ func _ready() -> void:
 	_label.add_theme_color_override("font_color", Color.WHITE)
 	_label.add_theme_color_override("font_outline_color", Color.BLACK)
 	_label.add_theme_constant_override("outline_size", 6)
+	_label.visible = overlay_visible
 	layer.add_child(_label)
 	_apply_preset(_preset_index)
 

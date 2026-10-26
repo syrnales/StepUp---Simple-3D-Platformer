@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://dt4hheropmynk"
+path="res://.godot/imported/inside my world.mp3-cfdaeca54ab3dfc50c61edab68379a3d.mp3str"
+
+[deps]
+
+source_file="res://resources/music/inside my world.mp3"
+dest_files=["res://.godot/imported/inside my world.mp3-cfdaeca54ab3dfc50c61edab68379a3d.mp3str"]
+
+[params]
+
+loop=true
+loop_offset=0.0
+bpm=0.0
+beat_count=0
+bar_beats=4

@@ -27,6 +27,7 @@ var view: Node3D
 var spawn_position: Vector3      # last checkpoint (also set by checkpoint_area.gd on every peer)
 var can_move := true             # set by Race (only affects input sampling)
 var epoch := 0                   # bumped on every race reset so stale packets are ignored
+var lobby_position: Vector3
 
 var owner_id := 0
 var is_local := false
@@ -68,6 +69,7 @@ func _ready() -> void:
 	is_local = owner_id == multiplayer.get_unique_id()
 	dt = 1.0 / Engine.physics_ticks_per_second
 	spawn_position = global_position
+	lobby_position = global_position
 	jumps_left = max_jumps
 	model_base_pos = model.position
 
