@@ -37,6 +37,13 @@ func _ready() -> void:
 	var layer := CanvasLayer.new()
 	layer.layer = 100
 	add_child(layer)
+	if not OS.is_debug_build():
+		enabled = false
+		prediction_enabled = true
+		show_ghost = false
+		set_process_unhandled_input(false)
+		set_process(false)
+	
 	_label = Label.new()
 	_label.position = Vector2(12, 12)
 	_label.add_theme_color_override("font_color", Color.WHITE)
@@ -45,7 +52,6 @@ func _ready() -> void:
 	_label.visible = overlay_visible
 	layer.add_child(_label)
 	_apply_preset(_preset_index)
-
 
 ## Pass every simulated packet through here. `fn` runs after the simulated delay (or never, if dropped).
 func run(owner: Object, fn: Callable) -> void:
